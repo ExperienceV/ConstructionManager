@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Fotos - {{ proyecto.nombre }}{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    <div class="mb-6">
+        <a href="/proyectos/{{ proyecto.id }}" class="text-sm text-amber-400 hover:text-amber-300">Volver al proyecto</a>
+        <h1 class="text-3xl font-extrabold text-white mt-2">Fotos de avance</h1>
+    </div>
+
+    {% if proyecto.estado != 'archivado' %}
+    <form method="post" action="/proyectos/{{ proyecto.id }}/fotos" enctype="multipart/form-data" class="glass-panel rounded-xl p-5 mb-6 grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-3 items-end">
+        <div>
+            <label class="block text-sm font-semibold text-slate-200 mb-2">Descripción</label>
+            <input name="descripcion" class="w-full rounded-lg bg-slate-900 border border-slate-700 px-3 py-2 text-white">
+        </div>
+        <div>
+            <label class="block text-sm font-semibold text-slate-200 mb-2">Foto</label>
+            <input name="archivo" type="file" accept=".jpg,.jpeg,.png,.webp" required class="w-full rounded-lg bg-slate-900 border border-slate-700 px-3 py-2 text-slate-200">
+        </div>
+        <button class="px-4 py-2 rounded-lg bg-amber-500 text-sm font-semibold text-slate-950 hover:bg-amber-400">Subir</button>
+    </form>
+    {% endif %}
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {% for foto in fotos %}
+        <article class="glass-panel rounded-xl overflow-hidden">
+            <img src="{{ foto.url_foto }}" alt="Foto de avance" class="w-full aspect-[4/3] object-cover bg-slate-900">
+            <div class="p-4">
+                <p class="text-sm text-slate-200">{{ foto.descripcion or "Sin descripción" }}</p>
+                <p class="text-xs text-slate-500 mt-2">{{ foto.tomada_en }}</p>
+                {% if user.rol == 'ingeniero' %}
+                <form method="post" action="/proyectos/{{ proyecto.id }}/fotos/{{ foto.id }}/eliminar" class="mt-3">
+                    <button class="text-sm text-red-400 hover:text-red-300">Eliminar</button>
+                </form>
+                {% endif %}
+            </div>
+        </article>
+        {% else %}
+        <div class="glass-panel rounded-xl p-8 text-center md:col-span-3 text-slate-400">No hay fotos cargadas.</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

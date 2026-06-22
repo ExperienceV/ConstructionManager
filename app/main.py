@@ -10,6 +10,8 @@ from app.config import settings
 from app.dependencies import get_db, get_current_user, require_rol
 from app.models.usuario import Usuario
 from app.routers.auth import router as auth_router
+from app.routers.proyectos import router as proyectos_router
+from app.routers.trabajadores import router as trabajadores_router
 
 app = FastAPI(
     title="Construcción App",
@@ -29,6 +31,8 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Registrar enrutadores
 app.include_router(auth_router)
+app.include_router(proyectos_router)
+app.include_router(trabajadores_router)
 
 templates = Jinja2Templates(directory="app/templates")
 

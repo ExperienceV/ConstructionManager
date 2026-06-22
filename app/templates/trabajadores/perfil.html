@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}{{ trabajador.nombre }} - ConstructManager{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
+        <div>
+            <a href="/personal" class="text-sm text-amber-400 hover:text-amber-300">Volver a personal</a>
+            <h1 class="text-3xl font-extrabold text-white mt-2">{{ trabajador.nombre }}</h1>
+        </div>
+        <div class="flex gap-2">
+            <a href="/personal/{{ trabajador.id }}/editar" class="px-4 py-2 rounded-lg border border-slate-700 text-sm text-slate-200 hover:bg-slate-800">Editar</a>
+            <form method="post" action="/personal/{{ trabajador.id }}/desactivar">
+                <button class="px-4 py-2 rounded-lg bg-slate-800 text-sm font-semibold text-slate-200 hover:bg-slate-700">Desactivar</button>
+            </form>
+        </div>
+    </div>
+
+    <section class="glass-panel rounded-xl p-6">
+        <dl class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+                <dt class="text-xs uppercase tracking-wider text-slate-500">Rol</dt>
+                <dd class="text-slate-200 mt-1">{{ trabajador.rol }}</dd>
+            </div>
+            {% if user.rol == 'ingeniero' %}
+            <div>
+                <dt class="text-xs uppercase tracking-wider text-slate-500">Tarifa/hora</dt>
+                <dd class="text-slate-200 mt-1">{{ "$%.2f"|format(trabajador.tarifa_hora) }}</dd>
+            </div>
+            {% endif %}
+            <div>
+                <dt class="text-xs uppercase tracking-wider text-slate-500">Días en ciclo actual</dt>
+                <dd class="text-slate-200 mt-1">{{ dias_en_ciclo }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs uppercase tracking-wider text-slate-500">Estado</dt>
+                <dd class="text-slate-200 mt-1">{{ "Activo" if trabajador.activo else "Inactivo" }}</dd>
+            </div>
+        </dl>
+    </section>
+</div>
+{% endblock %}

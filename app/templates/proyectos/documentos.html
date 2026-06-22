@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Documentos - {{ proyecto.nombre }}{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    <div class="mb-6">
+        <a href="/proyectos/{{ proyecto.id }}" class="text-sm text-amber-400 hover:text-amber-300">Volver al proyecto</a>
+        <h1 class="text-3xl font-extrabold text-white mt-2">Documentos</h1>
+    </div>
+
+    {% if user.rol == 'ingeniero' and proyecto.estado != 'archivado' %}
+    <form method="post" action="/proyectos/{{ proyecto.id }}/documentos" enctype="multipart/form-data" class="glass-panel rounded-xl p-5 mb-6 grid grid-cols-1 md:grid-cols-[180px_1fr_auto] gap-3 items-end">
+        <div>
+            <label class="block text-sm font-semibold text-slate-200 mb-2">Tipo</label>
+            <select name="tipo" class="w-full rounded-lg bg-slate-900 border border-slate-700 px-3 py-2 text-white">
+                <option value="plano">Plano</option>
+                <option value="contrato">Contrato</option>
+                <option value="resultado_final">Resultado final</option>
+                <option value="otro">Otro</option>
+            </select>
+        </div>
+        <div>
+            <label class="block text-sm font-semibold text-slate-200 mb-2">Archivo</label>
+            <input name="archivo" type="file" required class="w-full rounded-lg bg-slate-900 border border-slate-700 px-3 py-2 text-slate-200">
+        </div>
+        <button class="px-4 py-2 rounded-lg bg-amber-500 text-sm font-semibold text-slate-950 hover:bg-amber-400">Subir</button>
+    </form>
+    {% endif %}
+
+    <div class="glass-panel rounded-xl overflow-hidden">
+        <table class="w-full text-sm">
+            <thead class="bg-slate-900/70 text-slate-400">
+                <tr>
+                    <th class="text-left p-4">Nombre</th>
+                    <th class="text-left p-4">Tipo</th>
+                    <th class="text-left p-4">Subido</th>
+                    <th class="text-right p-4">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+                {% for doc in documentos %}
+                <tr>
+                    <td class="p-4 text-slate-200"><a href="{{ doc.url_archivo }}" class="hover:text-amber-400" target="_blank">{{ doc.nombre }}</a></td>
+                    <td class="p-4 text-slate-400">{{ doc.tipo }}</td>
+                    <td class="p-4 text-slate-400">{{ doc.subido_en }}</td>
+                    <td class="p-4 text-right">
+                        {% if user.rol == 'ingeniero' %}
+                        <form method="post" action="/proyectos/{{ proyecto.id }}/documentos/{{ doc.id }}/eliminar">
+                            <button class="text-red-400 hover:text-red-300">Eliminar</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="4" class="p-6 text-center text-slate-400">No hay documentos cargados.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

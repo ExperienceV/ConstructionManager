@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     BASE_URL: str = "http://localhost:8000"
     TIMEZONE: str = "America/Guayaquil"
     MOCK_AUTH: bool = False
+    CLOUDINARY_CLOUD_NAME: str = ""
+    CLOUDINARY_API_KEY: str = ""
+    CLOUDINARY_API_SECRET: str = ""
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 

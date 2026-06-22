@@ -57,15 +57,21 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo -->
-                <div class="flex items-center space-x-2">
+                <a href="/dashboard" class="flex items-center space-x-2">
                     <span class="text-2xl">🚧</span>
                     <span class="font-extrabold text-lg tracking-wider text-slate-100 uppercase">
                         Construct<span class="text-amber-500">Manager</span>
                     </span>
-                </div>
+                </a>
 
                 <!-- User Profile & Action -->
                 <div class="flex items-center space-x-4">
+                    {% if current_user.rol %}
+                    <nav class="hidden md:flex items-center gap-2 text-sm">
+                        <a href="/proyectos" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800">Proyectos</a>
+                        <a href="/personal" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800">Personal</a>
+                    </nav>
+                    {% endif %}
                     <div class="hidden sm:flex flex-col items-end">
                         <span class="text-sm font-semibold text-slate-200">{{ current_user.nombre }}</span>
                         <span class="text-xs font-medium text-amber-500 capitalize px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20">

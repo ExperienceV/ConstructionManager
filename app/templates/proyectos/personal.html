@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Personal - {{ proyecto.nombre }}{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    <div class="mb-6">
+        <a href="/proyectos/{{ proyecto.id }}" class="text-sm text-amber-400 hover:text-amber-300">Volver al proyecto</a>
+        <h1 class="text-3xl font-extrabold text-white mt-2">Personal asignado</h1>
+    </div>
+
+    {% if proyecto.estado != 'archivado' %}
+    <div class="glass-panel rounded-xl p-5 mb-6">
+        <form method="get" class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-3 mb-4">
+            <input name="q" value="{{ q }}" placeholder="Buscar trabajador activo" class="rounded-lg bg-slate-900 border border-slate-700 px-4 py-2 text-white">
+            <button class="px-4 py-2 rounded-lg border border-slate-700 text-sm text-slate-200 hover:bg-slate-800">Buscar</button>
+        </form>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {% for trabajador in disponibles %}
+            <form method="post" action="/proyectos/{{ proyecto.id }}/personal" class="flex items-center justify-between rounded-lg bg-slate-900/70 border border-slate-800 p-3">
+                <div>
+                    <p class="font-semibold text-slate-200">{{ trabajador.nombre }}</p>
+                    <p class="text-xs text-slate-500">{{ trabajador.rol }}</p>
+                </div>
+                <input type="hidden" name="trabajador_id" value="{{ trabajador.id }}">
+                <button class="px-3 py-2 rounded-lg bg-amber-500 text-sm font-semibold text-slate-950 hover:bg-amber-400">Asignar</button>
+            </form>
+            {% else %}
+            <p class="text-sm text-slate-400">No hay trabajadores disponibles con ese filtro.</p>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="glass-panel rounded-xl overflow-hidden">
+        <table class="w-full text-sm">
+            <thead class="bg-slate-900/70 text-slate-400">
+                <tr>
+                    <th class="text-left p-4">Trabajador</th>
+                    <th class="text-left p-4">Rol</th>
+                    <th class="text-left p-4">Asignado</th>
+                    <th class="text-right p-4">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+                {% for asignacion in asignaciones %}
+                <tr>
+                    <td class="p-4 text-slate-200"><a href="/personal/{{ asignacion.trabajador.id }}" class="hover:text-amber-400">{{ asignacion.trabajador.nombre }}</a></td>
+                    <td class="p-4 text-slate-400">{{ asignacion.trabajador.rol }}</td>
+                    <td class="p-4 text-slate-400">{{ asignacion.asignado_en }}</td>
+                    <td class="p-4 text-right">
+                        {% if proyecto.estado != 'archivado' %}
+                        <form method="post" action="/proyectos/{{ proyecto.id }}/personal/{{ asignacion.trabajador.id }}/quitar">
+                            <button class="text-red-400 hover:text-red-300">Quitar</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="4" class="p-6 text-center text-slate-400">No hay personal asignado.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

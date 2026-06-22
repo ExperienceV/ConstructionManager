@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Personal - ConstructManager{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+        <div>
+            <p class="text-xs font-semibold uppercase tracking-wider text-amber-500">Campo</p>
+            <h1 class="text-3xl font-extrabold text-white tracking-tight">Personal</h1>
+        </div>
+        <a href="/personal/nuevo" class="px-4 py-2 rounded-lg bg-amber-500 text-sm font-semibold text-slate-950 hover:bg-amber-400">Nuevo trabajador</a>
+    </div>
+
+    <div class="glass-panel rounded-xl overflow-hidden">
+        <table class="w-full text-sm">
+            <thead class="bg-slate-900/70 text-slate-400">
+                <tr>
+                    <th class="text-left p-4">Nombre</th>
+                    <th class="text-left p-4">Rol</th>
+                    {% if user.rol == 'ingeniero' %}
+                    <th class="text-left p-4">Tarifa/hora</th>
+                    {% endif %}
+                    <th class="text-left p-4">Proyectos asignados</th>
+                    <th class="text-left p-4">Días ciclo actual</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+                {% for trabajador in trabajadores %}
+                <tr>
+                    <td class="p-4 text-slate-200"><a href="/personal/{{ trabajador.id }}" class="hover:text-amber-400">{{ trabajador.nombre }}</a></td>
+                    <td class="p-4 text-slate-400">{{ trabajador.rol }}</td>
+                    {% if user.rol == 'ingeniero' %}
+                    <td class="p-4 text-slate-400">{{ "$%.2f"|format(trabajador.tarifa_hora) }}</td>
+                    {% endif %}
+                    <td class="p-4 text-slate-400">
+                        {% set activos = trabajador.proyectos|selectattr("proyecto.estado", "equalto", "activo")|list %}
+                        {{ activos|length }}
+                    </td>
+                    <td class="p-4 text-slate-400">{{ dias_por_trabajador.get(trabajador.id, 0) }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="{{ 5 if user.rol == 'ingeniero' else 4 }}" class="p-6 text-center text-slate-400">No hay trabajadores activos.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
