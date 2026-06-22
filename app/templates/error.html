@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Error {{ status_code }} - ConstructManager{% endblock %}
+
+{% block content %}
+<div class="flex-grow flex items-center justify-center px-4 py-12">
+    <div class="w-full max-w-md glass-panel p-8 rounded-3xl text-center shadow-2xl">
+        <div class="text-red-500 text-5xl mb-4">!</div>
+        <h1 class="text-2xl font-bold text-white mb-2">Acceso Denegado ({{ status_code }})</h1>
+        <p class="text-slate-400 text-sm mb-6">{{ detail }}</p>
+        <a href="/dashboard" class="inline-flex justify-center px-5 py-2.5 text-sm font-semibold text-slate-950 bg-amber-500 hover:bg-amber-400 rounded-xl transition duration-200">
+            Volver al Panel
+        </a>
+    </div>
+</div>
+{% endblock %}

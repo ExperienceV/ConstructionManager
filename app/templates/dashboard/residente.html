@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Panel Residente - ConstructManager{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+    <!-- Header Summary -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 pb-6 border-b border-slate-900">
+        <div>
+            <h1 class="text-3xl font-extrabold text-white tracking-tight">PANEL OPERATIVO</h1>
+            <p class="text-slate-400 text-sm mt-1">Vista del Residente | Registro de asistencia y control de campo</p>
+        </div>
+        <div class="mt-4 md:mt-0 flex items-center space-x-3">
+            <span class="text-xs font-semibold text-amber-500 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
+                Servidor Activo
+            </span>
+            <span class="text-xs font-medium text-slate-400 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl">
+                America/Guayaquil (UTC-5)
+            </span>
+        </div>
+    </div>
+
+    <!-- Quick Stats Grid (Excludes Financial Details) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <!-- Stat Card 1 -->
+        <div class="glass-panel p-6 rounded-2xl relative overflow-hidden">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-sm font-semibold text-slate-400 uppercase tracking-wider">Proyectos Asignados</span>
+                <span class="text-2xl">🏢</span>
+            </div>
+            <div class="flex items-baseline space-x-2">
+                <span class="text-3xl font-extrabold text-white">0</span>
+                <span class="text-xs font-medium text-slate-500">en curso</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-4 border-t border-slate-900/50 pt-3">Fase 2 permitirá ver tus proyectos asignados</p>
+        </div>
+
+        <!-- Stat Card 2 -->
+        <div class="glass-panel p-6 rounded-2xl relative overflow-hidden">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-sm font-semibold text-slate-400 uppercase tracking-wider">Asistencia Registrada Hoy</span>
+                <span class="text-2xl">👷</span>
+            </div>
+            <div class="flex items-baseline space-x-2">
+                <span class="text-3xl font-extrabold text-white">0</span>
+                <span class="text-xs font-medium text-slate-500">trabajadores</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-4 border-t border-slate-900/50 pt-3">Control diario del personal en obra</p>
+        </div>
+    </div>
+
+    <!-- Main Content Panel Mockup -->
+    <div class="glass-panel rounded-2xl p-6 md:p-8">
+        <div class="flex items-center space-x-3 mb-4">
+            <span class="text-2xl">🛡️</span>
+            <h2 class="text-lg font-bold text-white">Acceso Limitado (Operativo)</h2>
+        </div>
+        <p class="text-sm text-slate-300 leading-relaxed mb-6">
+            Actualmente estás logueado como <strong>Residente</strong>. Siguiendo las reglas de negocio del sistema, tu cuenta tiene permisos únicamente para la administración operativa en campo (registro de horas, carga de fotos y registro de gastos). Las estadísticas de inversión, costo laboral monetario y paneles financieros están restringidas para tu rol.
+        </p>
+
+        <!-- Features Checklist -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80 flex items-start space-x-3">
+                <span class="text-amber-500 text-lg">✅</span>
+                <div>
+                    <h3 class="text-sm font-semibold text-slate-200">Ingreso Exclusivo Operativo</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Control de asistencia y personal en campo.</p>
+                </div>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80 flex items-start space-x-3">
+                <span class="text-amber-500 text-lg">✅</span>
+                <div>
+                    <h3 class="text-sm font-semibold text-slate-200">Restricciones de Visualización Financiera</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">El sistema oculta automáticamente montos presupuestarios e informes de inversión.</p>
+                </div>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80 flex items-start space-x-3">
+                <span class="text-amber-500 text-lg">✅</span>
+                <div>
+                    <h3 class="text-sm font-semibold text-slate-200">Registro de Gastos</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Permiso habilitado para crear gastos de materiales adjuntando comprobantes.</p>
+                </div>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80 flex items-start space-x-3">
+                <span class="text-amber-500 text-lg">✅</span>
+                <div>
+                    <h3 class="text-sm font-semibold text-slate-200">Manejo de Zona Horaria Local</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Toda la visualización de asistencias y subida de datos está adaptada al huso horario de Ecuador.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

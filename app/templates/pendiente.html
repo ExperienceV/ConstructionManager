@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Cuenta Pendiente - ConstructManager{% endblock %}
+
+{% block content %}
+<div class="flex-grow flex items-center justify-center px-4 py-12">
+    <div class="w-full max-w-lg">
+        <!-- Card -->
+        <div class="glass-panel p-8 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden text-center">
+            <!-- Alert Icon -->
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-amber-500/10 border border-amber-500/20 mb-6 relative">
+                <span class="text-4xl animate-pulse">⏳</span>
+            </div>
+
+            <h1 class="text-2xl md:text-3xl font-extrabold text-white mb-4 tracking-tight uppercase">
+                Cuenta Pendiente de Activación
+            </h1>
+            
+            <p class="text-slate-300 text-sm md:text-base leading-relaxed mb-6">
+                ¡Hola, <span class="font-semibold text-slate-100">{{ current_user.nombre }}</span>! Tu inicio de sesión con Google (<strong>{{ current_user.email }}</strong>) se completó con éxito.
+            </p>
+
+            <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80 mb-8 text-left space-y-2">
+                <div class="flex items-start space-x-2 text-xs md:text-sm text-slate-400">
+                    <span class="text-amber-500">📌</span>
+                    <span>Tu cuenta ya está registrada en el sistema.</span>
+                </div>
+                <div class="flex items-start space-x-2 text-xs md:text-sm text-slate-400">
+                    <span class="text-amber-500">📌</span>
+                    <span>El Ingeniero Administrador debe asignarte el rol de <strong>ingeniero</strong> o <strong>residente</strong> directamente en la base de datos para habilitar tu acceso.</span>
+                </div>
+            </div>
+
+            <p class="text-xs text-slate-500 mb-8">
+                Por favor, notifica al administrador de la obra y refresca esta página una vez que te hayan asignado el rol.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="window.location.reload();" 
+                        class="w-full sm:w-auto px-6 py-3 text-sm font-semibold text-slate-950 bg-amber-500 hover:bg-amber-400 rounded-xl shadow-lg transition duration-200 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    Refrescar Página
+                </button>
+                <a href="/auth/logout" 
+                   class="w-full sm:w-auto px-6 py-3 text-sm font-semibold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700/80 rounded-xl border border-slate-700 transition duration-200 text-center">
+                    Cerrar Sesión
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

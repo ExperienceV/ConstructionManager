@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-950 text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Gestión de Obras{% endblock %}</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/tailwind.css') }}">
+    <!-- Tailwind CDN is kept for the development build until the compiled stylesheet is generated. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Glassmorphism custom styles */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.35);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+    {% block head %}{% endblock %}
+</head>
+<body class="flex flex-col h-full font-sans antialiased selection:bg-amber-500/30 selection:text-amber-200">
+    <!-- Background Gradients -->
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div class="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-amber-600/10 blur-[120px]"></div>
+        <div class="absolute top-1/2 -right-40 w-96 h-96 rounded-full bg-blue-600/10 blur-[120px]"></div>
+    </div>
+
+    <!-- Header / Navbar -->
+    {% if current_user %}
+    <header class="sticky top-0 z-40 w-full glass-panel shadow-lg shadow-black/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl">🚧</span>
+                    <span class="font-extrabold text-lg tracking-wider text-slate-100 uppercase">
+                        Construct<span class="text-amber-500">Manager</span>
+                    </span>
+                </div>
+
+                <!-- User Profile & Action -->
+                <div class="flex items-center space-x-4">
+                    <div class="hidden sm:flex flex-col items-end">
+                        <span class="text-sm font-semibold text-slate-200">{{ current_user.nombre }}</span>
+                        <span class="text-xs font-medium text-amber-500 capitalize px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20">
+                            {{ current_user.rol if current_user.rol else 'Pendiente' }}
+                        </span>
+                    </div>
+                    
+                    <a href="/auth/logout" class="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-slate-200 hover:text-white bg-slate-800 hover:bg-slate-700/80 rounded-xl border border-slate-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-950 focus:ring-amber-500">
+                        Cerrar Sesión
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    {% endif %}
+
+    <!-- Main Content Area -->
+    <main class="flex-grow flex flex-col">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-6 border-t border-slate-900 bg-slate-950/60 text-center text-xs text-slate-500">
+        <p>&copy; 2026 ConstructManager. Todos los derechos reservados. | Ecuador (America/Guayaquil)</p>
+    </footer>
+</body>
+</html>

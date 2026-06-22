@@ -37,7 +37,7 @@
 
 
 ## EXTRA
-- Cada fase completada o cambio realizado, debe agregarse una breve explicasion de lo
+- Cada fase completada o cambio realizado, debe agregarse una breve explicacion de lo
   desarrollado en UPDATES.md siguiendo la siguiente estructura:
 
  ---------------
@@ -45,3 +45,7 @@
   Descripcion: He realizado...
   Fecha: DD/MM/AA 
  ---------------
+
+- No necesito sobreingenieria, necesito que todo funcione y que sea escalable a futuras actualizaciones.
+- Solo trabaja con lo basico necesario, no intentes optimizar o implementar algo que no sea necesario para el funcionamiento del proyecto.
+- No intentes implementar funcionalidades que no esten en los documentos, si necesitas implementar algo nuevo, primero pregunta y documentalo.
